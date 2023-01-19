@@ -28,8 +28,6 @@ export const MultiSelect = ({ selectOptions }) => {
 		} else {
 			setIsOpen(false)
 		}
-		console.log(e.composedPath().includes(list))
-		console.log(e.composedPath())
 	}
 
 	return (
@@ -47,8 +45,6 @@ export const MultiSelect = ({ selectOptions }) => {
 							>
 								<span>{item.label}</span>
 								<button onClick={() => handleOptionDelete(item)} 
-								tabIndex = {0}
-								aria-hidden = {false}
 								>X</button>
 							</div>
 					  ))
