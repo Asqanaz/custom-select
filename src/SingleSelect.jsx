@@ -44,7 +44,7 @@ export const SingleSelect = ({ selectOptions }) => {
 					{selectOptions.length ? (
 						selectOptions.map(item => (
 							<li
-								className={`p-5 ${selectedOption === item.label ? "bg-blue-200" : "bg-transparent"} rounded-2xl`}
+								className={`p-5 ${selectedOption === item.label ? "bg-blue-200" : "bg-transparent"} rounded-2xl hover:bg-blue-100`}
 								role="presentation"
 								key={item.id}
 								onClick={() => handleSelectOption(item.label)}

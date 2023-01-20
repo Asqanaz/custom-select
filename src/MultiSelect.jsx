@@ -24,29 +24,26 @@ export const MultiSelect = ({ selectOptions }) => {
 	const handleDocumentClicked = e => {
 		if (list.current && list.current.contains(e.target)) {
 			setIsOpen(true)
-			
 		} else {
 			setIsOpen(false)
 		}
 	}
 
 	return (
-		<div className="w-1/2 min-h-[50px] relative bg-gray-200 border-2 border-green-200 mx-auto rounded-full px-5 p-2 flex items-center">
-			<div
-				className="w-full h-full flex items-center gap-x-8"
-				role="presentation"
-				ref = {list}
-			>
+		<div className="select-container w-1/2 min-h-[50px] relative bg-gray-200 border-2 border-green-200 mx-auto rounded-full px-5 p-2 flex items-center">
+			<div className="w-full h-full flex items-center gap-x-8" role="button" ref={list}>
 				{selectedOption.length
 					? selectedOption.map(item => (
-							<div
-								className="h-full bg-gray-500 flex gap-x-5 w-fit items-center justify-between"
+							<button
+								className="h-full bg-gray-500 flex gap-x-8 w-fit items-center justify-between px-4 py-1 rounded-2xl hover:bg-red-400 z-20"
 								key={item.id}
+								onClick={e => {
+									handleOptionDelete(item)
+									e.stopPropagation()
+								}}
 							>
 								<span>{item.label}</span>
-								<button onClick={() => handleOptionDelete(item)} 
-								>X</button>
-							</div>
+							</button>
 					  ))
 					: "MultiSelect"}
 			</div>
@@ -56,25 +53,29 @@ export const MultiSelect = ({ selectOptions }) => {
 					X
 				</button>
 			</div>
-
-			{isOpen && (
-				<ul role = "presentation" className="w-full absolute top-full left-0 h-fit  bg-gray-300 rounded-2xl z-20" onClick = {(e) => e.stopPropagation()}>
-					{options.length ? (
-						options.map(item => (
-							<li
-								className='p-5'
-								role="presentation"
-								key={item.id}
-								onClick={() => handleAddToOptions(item)}
-							>
-								{item.label}
-							</li>
-						))
-					) : (
-						<li className="p-5">No select element</li>
-					)}
-				</ul>
-			)}
+			<ul
+				role="menubar"
+				aria-hidden={true}
+				className={`w-full absolute top-full left-0 h-fit  bg-gray-300 rounded-2xl z-20 transition-all ${
+					isOpen ? "block" : "hidden"
+				}`}
+				onClick={e => e.stopPropagation()}
+			>
+				{options.length ? (
+					options.map(item => (
+						<li
+							className="p-5 cursor-pointer"
+							role="presentation"
+							key={item.id}
+							onClick={() => handleAddToOptions(item)}
+						>
+							{item.label}
+						</li>
+					))
+				) : (
+					<li className="p-5">No select element</li>
+				)}
+			</ul>
 		</div>
 	)
 }
